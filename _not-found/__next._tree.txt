@@ -1,2 +1,2 @@
-:HL["/sentient-agency-hub/_next/static/chunks/0u-6vqpc_r6nx.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"eRejj2u86dtRU7j3ENPmT"}
+:HL["/sentient-agency-hub/_next/static/chunks/0psr--0disp.c.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"2iMr4pH9Jm0wGHQlb48tl"}
