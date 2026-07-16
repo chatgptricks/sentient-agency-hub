@@ -19,10 +19,6 @@ This inventory records the full review of `/Users/tbnalfaro/Desktop/Codex Projec
 ### 03 — The Lab
 
 - **NEO Solutions** — <https://chatgptricks.github.io/neosolutions/>
-- **The Showroom** — <https://moltbotmaxx.github.io/the-showroom/>
-- **Pageants** — <https://pageants.app/>
-- **The Ride CR** — <https://theridecr.net/>
-- **NEO Dynamic Logo Lab** — Project 13. Local Three.js/GLSL prototype; no public destination found.
 
 ### 04 — The Archive
 
@@ -57,7 +53,7 @@ This inventory records the full review of `/Users/tbnalfaro/Desktop/Codex Projec
 
 The sweep reviewed all current numbered folders: 01 Pageants, 02 TheRideCR, 03 Posts, 04 Sentient Apps, 05 Tests or Minis, 06 CTricks.Fun, 07 Books, 08 Showroom, 09 Tricks Dash, 10 Predict, 11 Sentient CRM, 12 Social Brain, 13 Neo Logo, 14 NEO WEBSITE, 16 Sentient Case Studies, 17 Slack Apps, and 18 Sentient Hub.
 
-Project 07 Books and the experiments under Project 05 were reviewed but not promoted into the initial hub because they do not yet have a clear public destination or a stronger fit than the selected systems. Backups, archived copies, build outputs, dependencies, and the Hub itself were excluded as duplicate sources.
+The Showroom, Pageants, The Ride CR, and NEO Dynamic Logo Lab were reviewed and then explicitly excluded because they are not Sentient projects. Project 07 Books and the experiments under Project 05 were also reviewed but not promoted into the hub. Backups, archived copies, build outputs, dependencies, and the Hub itself were excluded as duplicate sources.
 
 ## Next connections
 
@@ -65,4 +61,4 @@ Project 07 Books and the experiments under Project 05 were reviewed but not prom
 2. Publish Sentient Promos CRM and connect it to The Bridge.
 3. Recover or rebuild the QR Code Generator.
 4. Redeploy Battle Giveaway and replace its offline status with the working URL.
-5. Decide whether Social Brain, the Posts Production Library, NEO Dynamic Logo Lab, and Slack Link Catcher should receive public or authenticated deployments.
+5. Decide whether Social Brain, the Posts Production Library, and Slack Link Catcher should receive public or authenticated deployments.

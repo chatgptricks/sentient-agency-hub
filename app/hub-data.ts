@@ -102,13 +102,13 @@ export const zones: Zone[] = [
     name: "The Lab",
     function: "Client Builds & Experiments",
     description:
-      "A shelf of designed products, client-facing experiences and visual prototypes that have moved beyond a loose idea.",
+      "A focused shelf for Sentient-owned client builds and experiments that have moved beyond a loose idea.",
     x: 80,
     y: 34,
     zoom: 2.05,
     stats: [
-      ["04", "Live builds"],
-      ["01", "Prototype pending"],
+      ["01", "Sentient project"],
+      ["Live", "Public build"],
     ],
     cards: [
       {
@@ -119,41 +119,6 @@ export const zones: Zone[] = [
         status: "Live",
         state: "live",
         href: "https://chatgptricks.github.io/neosolutions/",
-      },
-      {
-        title: "The Showroom",
-        meta: "Membership portal / Project 08",
-        description:
-          "A private membership and access experience with Firebase authentication, digital cards, launches, benefits and QR entry.",
-        status: "Live",
-        state: "live",
-        href: "https://moltbotmaxx.github.io/the-showroom/",
-      },
-      {
-        title: "Pageants",
-        meta: "Scoring product / Project 01",
-        description:
-          "A professional pageant scoring and event-management product with a live custom-domain experience.",
-        status: "Live",
-        state: "live",
-        href: "https://pageants.app/",
-      },
-      {
-        title: "The Ride CR",
-        meta: "Booking experience / Project 02",
-        description:
-          "A bilingual booking and operations website for The Ride Costa Rica.",
-        status: "Live",
-        state: "live",
-        href: "https://theridecr.net/",
-      },
-      {
-        title: "NEO Dynamic Logo Lab",
-        meta: "Three.js prototype / Project 13",
-        description:
-          "A local WebGL and GLSL identity experiment with three saved animated blob-logo directions. It has not been published yet.",
-        status: "Local prototype",
-        state: "pending",
       },
     ],
   },
