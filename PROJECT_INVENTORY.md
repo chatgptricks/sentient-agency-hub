@@ -6,38 +6,11 @@ This inventory records the full review of `/Users/tbnalfaro/Desktop/Codex Projec
 
 ## Room map
 
-### 01 — The Bridge
-
-- **Sentient Promos CRM** — Project 11. A recovered local CRM covering clients, campaigns, media outlets, margins, payments, invoices, onboarding, and Instagram reporting. No public repository or deployment was found, so the hub marks it as coming soon.
-
-### 02 — The Forum
-
-- **ChatGPT at Work** — <https://chatgptricks.fun/#/ChatGPTatWork>
-- **ChatGPTricks Prompt Hub** — <https://chatgptricks.fun/>
-- **Content Formats** — <https://chatgptricks.github.io/content-formats/>
-
-### 03 — The Lab
-
-- **NEO Solutions** — <https://chatgptricks.github.io/neosolutions/>
-
-### 04 — The Archive
-
-- **Cortex by Sentient / Predict** — <https://chatgptricks.github.io/cortex/>
-- **Tricks Dash** — <https://chatgptricks.github.io/tricks-dash/>
-- **Sentient Case Studies** — <https://chatgptricks.github.io/sentient-case-studies/>
-- **AI Safety Desk** — <https://maxxbot.cloud/#/ai-safety>
-- **BCCR FX Intelligence** — <https://maxxbot.cloud/fx-tracker/>
-- **Slack Link Catcher** — Project 17. Local Slack Socket Mode service; no public destination found.
-
-### 05 — The Commons
-
-- **Account Deck Directory** — No Canva deck URLs were found in the canonical project archive. The room is reserved for the account-by-account link list when it is supplied.
-
-### 06 — The Front Door
+### 01 — The Front Door
 
 - **Sentient Accounts** — <https://maxxbot.cloud/sentient-accounts/dashboard/>
 
-### 07 — The Floor
+### 02 — The Floor
 
 - **Maxx Tools** — <https://maxxbot.cloud/>
 - **Reddit Visualizer** — <https://maxxbot.cloud/reddit-visualizer/>
@@ -48,6 +21,33 @@ This inventory records the full review of `/Users/tbnalfaro/Desktop/Codex Projec
 - **Posts Production Library** — Project 03. Local collection of reusable carousel and visual-production systems.
 - **Battle Giveaway** — source found, but the configured Railway destination currently reports that the application was not found.
 - **QR Code Generator** — no canonical source or deployment was found in Codex Projects; the hub retains a recovery slot for it.
+
+### 03 — The Archive
+
+- **Cortex by Sentient / Predict** — <https://chatgptricks.github.io/cortex/>
+- **Tricks Dash** — <https://chatgptricks.github.io/tricks-dash/>
+- **Sentient Case Studies** — <https://chatgptricks.github.io/sentient-case-studies/>
+- **AI Safety Desk** — <https://maxxbot.cloud/#/ai-safety>
+- **BCCR FX Intelligence** — <https://maxxbot.cloud/fx-tracker/>
+- **Slack Link Catcher** — Project 17. Local Slack Socket Mode service; no public destination found.
+
+### 04 — The Commons
+
+- **Account Deck Directory** — No Canva deck URLs were found in the canonical project archive. The room is reserved for the account-by-account link list when it is supplied.
+
+### 05 — The Forum
+
+- **ChatGPT at Work** — <https://chatgptricks.fun/#/ChatGPTatWork>
+- **ChatGPTricks Prompt Hub** — <https://chatgptricks.fun/>
+- **Content Formats** — <https://chatgptricks.github.io/content-formats/>
+
+### 06 — The Lab
+
+- **NEO Solutions** — <https://chatgptricks.github.io/neosolutions/>
+
+### 07 — The Bridge
+
+- **Sentient Promos CRM** — Project 11. A recovered local CRM covering clients, campaigns, media outlets, margins, payments, invoices, onboarding, and Instagram reporting. No public repository or deployment was found, so the hub marks it as coming soon.
 
 ## Archive coverage
 

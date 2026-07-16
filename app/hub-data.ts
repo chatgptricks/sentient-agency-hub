@@ -23,10 +23,10 @@ export type Zone = {
   cards: ProjectCard[];
 };
 
-export const zones: Zone[] = [
+const zoneCatalog: Zone[] = [
   {
     id: "bridge",
-    number: "01",
+    number: "07",
     room: "Leadership Suite",
     name: "The Bridge",
     function: "Leadership & Portfolio",
@@ -52,7 +52,7 @@ export const zones: Zone[] = [
   },
   {
     id: "forum",
-    number: "02",
+    number: "05",
     room: "Strategy Forum",
     name: "The Forum",
     function: "Use Cases & Playbooks",
@@ -97,7 +97,7 @@ export const zones: Zone[] = [
   },
   {
     id: "lab",
-    number: "03",
+    number: "06",
     room: "Creative Lab",
     name: "The Lab",
     function: "Client Builds & Experiments",
@@ -124,7 +124,7 @@ export const zones: Zone[] = [
   },
   {
     id: "archive",
-    number: "04",
+    number: "03",
     room: "Knowledge Library",
     name: "The Archive",
     function: "Intelligence & Evidence",
@@ -195,7 +195,7 @@ export const zones: Zone[] = [
   },
   {
     id: "commons",
-    number: "05",
+    number: "04",
     room: "Client Commons",
     name: "The Commons",
     function: "Account Decks & Shared Rooms",
@@ -221,7 +221,7 @@ export const zones: Zone[] = [
   },
   {
     id: "front-door",
-    number: "06",
+    number: "01",
     room: "Welcome Desk",
     name: "The Front Door",
     function: "Accounts & Network View",
@@ -248,7 +248,7 @@ export const zones: Zone[] = [
   },
   {
     id: "floor",
-    number: "07",
+    number: "02",
     room: "Delivery Studio",
     name: "The Floor",
     function: "Production Tools & Utilities",
@@ -343,3 +343,7 @@ export const zones: Zone[] = [
     ],
   },
 ];
+
+export const zones: Zone[] = [...zoneCatalog].sort(
+  (first, second) => Number(first.number) - Number(second.number),
+);

@@ -445,17 +445,17 @@ a:focus-visible {
   top: 96px;
   right: 26px;
   bottom: 57px;
-  width: min(395px, calc(100vw - 122px));
-  padding: 23px 24px 18px;
-  overflow-y: auto;
+  width: clamp(440px, 35vw, 520px);
+  max-width: calc(100vw - 122px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
   overscroll-behavior: contain;
   border: 1px solid rgba(255, 255, 255, 0.17);
   background: var(--panel);
   box-shadow: 0 30px 110px rgba(0, 0, 0, 0.78);
   backdrop-filter: blur(24px) saturate(1.2);
   animation: panelIn 650ms 200ms var(--ease-expo) both;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(207, 255, 26, 0.6) rgba(255, 255, 255, 0.06);
 }
 
 .panelTopline {
@@ -468,8 +468,7 @@ a:focus-visible {
   box-shadow: 0 0 28px rgba(207, 255, 26, 0.35);
 }
 
-.panelToolbar,
-.panelNavigation,
+.panelShellHeader,
 .projectsHeader,
 .cardMeta {
   display: flex;
@@ -477,7 +476,11 @@ a:focus-visible {
   justify-content: space-between;
 }
 
-.panelToolbar {
+.panelShellHeader {
+  min-height: 54px;
+  padding: 8px 12px 8px 18px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(3, 3, 3, 0.9);
   color: #777a72;
   font-family: "Courier New", monospace;
   font-size: 9px;
@@ -502,21 +505,222 @@ a:focus-visible {
   color: var(--acid);
 }
 
+.panelQuickNav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.panelQuickNav > span {
+  min-width: 104px;
+  color: #70736b;
+  text-align: center;
+}
+
+.panelQuickNav button {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.025);
+  color: #d8dad4;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.panelQuickNav button:hover {
+  border-color: rgba(207, 255, 26, 0.55);
+  background: rgba(207, 255, 26, 0.07);
+  color: var(--acid);
+}
+
+.panelScroll {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 22px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(207, 255, 26, 0.6) rgba(255, 255, 255, 0.06);
+}
+
+.journeyTrack {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+  margin: 0;
+  padding: 15px 20px 13px;
+}
+
+.journeyTrack::before {
+  position: absolute;
+  top: 21px;
+  right: 27px;
+  left: 27px;
+  height: 1px;
+  content: "";
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.journeyTrack button {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: #555850;
+  cursor: pointer;
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+
+.journeyTrack button i {
+  width: 7px;
+  height: 7px;
+  display: block;
+  border: 1px solid #5f625b;
+  border-radius: 50%;
+  background: #080808;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.journeyTrack button.complete i {
+  border-color: rgba(207, 255, 26, 0.55);
+  background: rgba(207, 255, 26, 0.35);
+}
+
+.journeyTrack button.active {
+  color: var(--acid);
+}
+
+.journeyTrack button.active i {
+  border-color: var(--acid);
+  background: var(--acid);
+  box-shadow: 0 0 13px rgba(207, 255, 26, 0.7);
+  transform: scale(1.45);
+}
+
+.journeyTrack button:hover i {
+  border-color: var(--acid);
+}
+
 .panelHeading {
-  padding: 27px 0 22px;
-  border-bottom: 1px solid var(--line);
+  position: relative;
+  min-height: 230px;
+  margin: 0 18px;
+  padding: 29px 21px 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background:
+    linear-gradient(135deg, rgba(207, 255, 26, 0.075), transparent 43%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
+}
+
+.panelRoomNumber {
+  position: absolute;
+  right: -12px;
+  bottom: -42px;
+  color: rgba(255, 255, 255, 0.045);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 156px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.1em;
+  pointer-events: none;
+}
+
+.roomGlyph {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  width: 56px;
+  height: 56px;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.roomGlyph i {
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  border: 1px solid rgba(207, 255, 26, 0.45);
+  transform: rotate(45deg);
+}
+
+.roomGlyph i:nth-child(1) {
+  top: 2px;
+  right: 3px;
+  background: rgba(207, 255, 26, 0.08);
+}
+
+.roomGlyph i:nth-child(2) {
+  top: 18px;
+  right: 19px;
+}
+
+.roomGlyph i:nth-child(3) {
+  top: 28px;
+  right: 0;
+  width: 19px;
+  height: 19px;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.roomKicker {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  padding-right: 88px;
+}
+
+.roomSignal {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #8b8e85;
+  font-family: "Courier New", monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-left: 14px;
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.roomSignal i {
+  width: 6px;
+  height: 6px;
+  display: block;
+  border-radius: 50%;
+  background: var(--acid);
+  box-shadow: 0 0 9px rgba(207, 255, 26, 0.55);
 }
 
 .panelHeading h2 {
-  margin: 9px 0 5px;
+  position: relative;
+  z-index: 1;
+  max-width: 86%;
+  margin: 26px 0 7px;
   color: #fff;
-  font-size: clamp(44px, 4vw, 62px);
+  font-size: clamp(46px, 4vw, 64px);
   line-height: 0.88;
   letter-spacing: -0.065em;
   text-transform: uppercase;
 }
 
 .zoneFunction {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: #d7d9d2;
   font-size: 12px;
@@ -526,8 +730,11 @@ a:focus-visible {
 }
 
 .zoneDescription {
+  position: relative;
+  z-index: 1;
+  max-width: 36em;
   margin: 14px 0 0;
-  color: #979a92;
+  color: #a4a79e;
   font-size: 12px;
   line-height: 1.55;
 }
@@ -535,18 +742,18 @@ a:focus-visible {
 .statGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  margin: 1px 0 0;
-  background: var(--line);
+  gap: 8px;
+  margin: 9px 18px 0;
 }
 
 .stat {
-  min-height: 81px;
+  min-height: 76px;
   display: grid;
   align-content: center;
   gap: 5px;
-  padding: 13px 16px;
-  background: rgba(5, 5, 5, 0.92);
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
 }
 
 .stat strong {
@@ -564,7 +771,8 @@ a:focus-visible {
 }
 
 .projectsHeader {
-  padding: 22px 0 10px;
+  margin: 0 18px;
+  padding: 24px 0 11px;
   color: #f2f3ef;
   font-size: 10px;
   font-weight: 700;
@@ -582,23 +790,56 @@ a:focus-visible {
 
 .projectList {
   display: grid;
-  gap: 7px;
+  gap: 8px;
+  margin: 0 18px;
+}
+
+.projectList.layout-mosaic,
+.projectList.layout-directory {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .projectCard {
   position: relative;
   width: 100%;
+  min-height: 126px;
   display: grid;
-  grid-template-columns: 26px 1fr 18px;
+  grid-template-columns: 26px minmax(0, 1fr) 22px;
   gap: 10px;
-  padding: 14px 13px;
+  padding: 16px 14px;
+  overflow: hidden;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.025);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 50%),
+    rgba(255, 255, 255, 0.018);
   color: inherit;
   cursor: default;
   text-decoration: none;
   text-align: left;
   transition: border-color 180ms ease, background 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.projectCard::before {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  width: 2px;
+  content: "";
+  background: var(--acid);
+  opacity: 0.65;
+}
+
+.projectCard.state-source::before {
+  background: #50aeff;
+}
+
+.projectCard.state-pending::before {
+  background: #e7b95d;
+}
+
+.projectCard.state-offline::before {
+  background: #ff6f6f;
 }
 
 .projectCard[href] {
@@ -608,7 +849,7 @@ a:focus-visible {
 .projectCard[href]:hover {
   border-color: rgba(207, 255, 26, 0.56);
   background: rgba(207, 255, 26, 0.045);
-  transform: translateX(-3px);
+  transform: translateY(-2px);
 }
 
 .projectCard.isUnavailable {
@@ -633,7 +874,8 @@ a:focus-visible {
 
 .cardBody {
   min-width: 0;
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }
 
 .cardBody > small {
@@ -649,20 +891,25 @@ a:focus-visible {
 
 .cardBody > strong {
   color: #f2f3ef;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.3;
 }
 
 .cardDescription {
   margin-top: 9px;
+  display: -webkit-box;
+  overflow: hidden;
   color: #8e9189;
   font-size: 10px;
   line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .cardMeta {
   gap: 10px;
-  margin-top: 12px;
+  margin-top: auto;
+  padding-top: 13px;
   color: #777a72;
   font-family: "Courier New", monospace;
   font-size: 8px;
@@ -721,31 +968,243 @@ a:focus-visible {
 }
 
 .cardArrow {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   font-family: "Courier New", monospace;
   font-size: 14px;
   text-align: right;
 }
 
+.layout-feature .projectCard {
+  min-height: 238px;
+  grid-template-columns: 34px minmax(0, 1fr) 40px;
+  padding: 25px 22px;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(207, 255, 26, 0.12), transparent 28%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.014));
+}
+
+.layout-feature .cardIndex {
+  color: var(--acid);
+  font-size: 11px;
+}
+
+.layout-feature .cardBody > small {
+  margin-bottom: 11px;
+}
+
+.layout-feature .cardBody > strong {
+  max-width: 85%;
+  font-size: 24px;
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.layout-feature .cardDescription {
+  max-width: 34em;
+  margin-top: 17px;
+  font-size: 12px;
+  line-height: 1.65;
+  -webkit-line-clamp: 5;
+}
+
+.layout-feature .cardArrow {
+  width: 36px;
+  height: 36px;
+  border-color: rgba(207, 255, 26, 0.35);
+  background: rgba(207, 255, 26, 0.06);
+  font-size: 18px;
+}
+
+.layout-mosaic .projectCard:first-child,
+.layout-directory .projectCard:first-child {
+  grid-column: 1 / -1;
+  min-height: 138px;
+  background:
+    linear-gradient(100deg, rgba(207, 255, 26, 0.07), transparent 48%),
+    rgba(255, 255, 255, 0.02);
+}
+
+.layout-mosaic .projectCard:not(:first-child),
+.layout-directory .projectCard:not(:first-child) {
+  min-height: 172px;
+  grid-template-columns: minmax(0, 1fr) 20px;
+  padding: 16px;
+}
+
+.layout-mosaic .projectCard:not(:first-child) .cardIndex,
+.layout-directory .projectCard:not(:first-child) .cardIndex {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+}
+
+.layout-mosaic .projectCard:not(:first-child) .cardBody,
+.layout-directory .projectCard:not(:first-child) .cardBody {
+  grid-column: 1 / -1;
+  padding-top: 12px;
+}
+
+.layout-mosaic .projectCard:not(:first-child) .cardArrow,
+.layout-directory .projectCard:not(:first-child) .cardArrow {
+  position: absolute;
+  right: 13px;
+  bottom: 13px;
+}
+
+.layout-mosaic .projectCard:not(:first-child) .cardMeta,
+.layout-directory .projectCard:not(:first-child) .cardMeta {
+  padding-right: 25px;
+}
+
+.layout-mosaic .projectCard:not(:first-child) .cardMeta > span:last-child,
+.layout-directory .projectCard:not(:first-child) .cardMeta > span:last-child {
+  display: none;
+}
+
+.layout-directory .projectCard:not(:first-child) {
+  min-height: 154px;
+}
+
+.layout-directory .projectCard:not(:first-child) .cardDescription {
+  -webkit-line-clamp: 2;
+}
+
+.mode-directory .panelHeading {
+  min-height: 184px;
+  padding-top: 23px;
+  padding-bottom: 19px;
+}
+
+.mode-directory .panelHeading h2 {
+  margin-top: 18px;
+  font-size: clamp(42px, 3.5vw, 54px);
+}
+
+.mode-directory .zoneDescription {
+  margin-top: 10px;
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: 11px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.mode-directory .stat {
+  min-height: 62px;
+}
+
+.mode-directory .projectsHeader {
+  padding-top: 16px;
+}
+
+.mode-feature .panelHeading {
+  min-height: 210px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+}
+
+.mode-feature .panelHeading h2 {
+  margin-top: 21px;
+}
+
+.mode-feature .stat {
+  min-height: 66px;
+}
+
+.mode-feature .projectsHeader {
+  padding-top: 17px;
+}
+
 .panelNavigation {
-  padding-top: 18px;
-  color: #6f726a;
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 7px;
+  padding: 8px;
+  border-top: 1px solid var(--line);
+  background: rgba(2, 2, 2, 0.97);
   font-family: "Courier New", monospace;
-  font-size: 9px;
 }
 
 .panelNavigation button {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #b7bab2;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+  color: #d9dbd4;
   cursor: pointer;
-  font-size: 9px;
-  letter-spacing: 0.08em;
+  text-align: left;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.panelNavigation button:last-child {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.navArrow {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(207, 255, 26, 0.34);
+  color: var(--acid);
+  font-size: 15px;
+}
+
+.navCopy {
+  min-width: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.navCopy small {
+  color: #696c64;
+  font-size: 7px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-.panelNavigation button:hover {
+.navCopy strong {
+  overflow: hidden;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.navPosition {
+  min-width: 46px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  color: #666960;
+  line-height: 1;
+}
+
+.navPosition strong {
   color: var(--acid);
+  font-size: 14px;
+}
+
+.navPosition small {
+  margin-top: 4px;
+  font-size: 7px;
+}
+
+.panelNavigation button:hover {
+  border-color: rgba(207, 255, 26, 0.48);
+  background: rgba(207, 255, 26, 0.055);
 }
 
 .footerBar {
@@ -943,27 +1402,75 @@ a:focus-visible {
   .detailPanel {
     top: auto;
     right: 0;
-    bottom: 35px;
+    bottom: 0;
     left: 0;
     width: auto;
-    max-height: 52svh;
-    padding: 19px 18px 16px;
+    max-width: none;
+    height: 68svh;
+    max-height: 68svh;
+    padding: 0;
     border-right: 0;
     border-left: 0;
     border-bottom: 0;
     animation-name: sheetIn;
   }
 
+  .panelShellHeader {
+    min-height: 50px;
+    padding: 7px 9px 7px 14px;
+  }
+
+  .panelQuickNav > span {
+    min-width: 86px;
+    font-size: 8px;
+  }
+
+  .panelQuickNav button {
+    width: 34px;
+    height: 34px;
+  }
+
+  .journeyTrack {
+    padding: 13px 14px 11px;
+  }
+
+  .journeyTrack::before {
+    top: 19px;
+    right: 21px;
+    left: 21px;
+  }
+
   .panelHeading {
-    padding: 20px 0 17px;
+    min-height: 192px;
+    margin: 0 12px;
+    padding: 24px 16px 19px;
   }
 
   .panelHeading h2 {
+    max-width: 90%;
+    margin-top: 23px;
     font-size: 41px;
+  }
+
+  .roomGlyph {
+    top: 19px;
+    right: 17px;
+    transform: scale(0.78);
+    transform-origin: top right;
+  }
+
+  .panelRoomNumber {
+    right: -8px;
+    bottom: -26px;
+    font-size: 118px;
   }
 
   .zoneDescription {
     font-size: 11px;
+  }
+
+  .statGrid {
+    margin: 8px 12px 0;
   }
 
   .stat {
@@ -971,7 +1478,98 @@ a:focus-visible {
   }
 
   .projectsHeader {
+    margin: 0 12px;
     padding-top: 18px;
+  }
+
+  .projectList,
+  .projectList.layout-mosaic,
+  .projectList.layout-directory {
+    grid-template-columns: 1fr;
+    margin: 0 12px;
+  }
+
+  .layout-mosaic .projectCard:first-child,
+  .layout-directory .projectCard:first-child {
+    grid-column: auto;
+  }
+
+  .layout-feature .projectCard {
+    min-height: 210px;
+    grid-template-columns: 28px minmax(0, 1fr) 34px;
+    padding: 20px 16px;
+  }
+
+  .layout-feature .cardBody > strong {
+    font-size: 21px;
+  }
+
+  .layout-feature .cardDescription {
+    font-size: 11px;
+  }
+
+  .layout-mosaic .projectCard:not(:first-child),
+  .layout-directory .projectCard:not(:first-child) {
+    min-height: 126px;
+    grid-template-columns: 24px minmax(0, 1fr) 22px;
+    padding: 15px 13px;
+  }
+
+  .layout-mosaic .projectCard:not(:first-child) .cardIndex,
+  .layout-directory .projectCard:not(:first-child) .cardIndex {
+    position: static;
+  }
+
+  .layout-mosaic .projectCard:not(:first-child) .cardBody,
+  .layout-directory .projectCard:not(:first-child) .cardBody {
+    grid-column: auto;
+    padding-top: 0;
+  }
+
+  .layout-mosaic .projectCard:not(:first-child) .cardArrow,
+  .layout-directory .projectCard:not(:first-child) .cardArrow {
+    position: static;
+  }
+
+  .layout-mosaic .projectCard:not(:first-child) .cardMeta,
+  .layout-directory .projectCard:not(:first-child) .cardMeta {
+    padding-right: 0;
+  }
+
+  .layout-mosaic .projectCard:not(:first-child) .cardMeta > span:last-child,
+  .layout-directory .projectCard:not(:first-child) .cardMeta > span:last-child {
+    display: inline;
+  }
+
+  .panelNavigation {
+    min-height: 70px;
+    grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr);
+    gap: 4px;
+    padding: 6px;
+  }
+
+  .panelNavigation button {
+    min-height: 56px;
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .navArrow {
+    width: 28px;
+    height: 28px;
+  }
+
+  .navCopy strong {
+    max-width: 86px;
+    font-size: 8px;
+  }
+
+  .navPosition {
+    min-width: 38px;
+  }
+
+  .is-exploring .footerBar {
+    display: none;
   }
 
   .footerBar {

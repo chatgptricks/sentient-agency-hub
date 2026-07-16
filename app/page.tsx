@@ -33,6 +33,8 @@ export default function Home() {
   const mapRef = useRef<HTMLDivElement>(null);
 
   const activeZone = activeIndex === null ? null : zones[activeIndex];
+  const previousZone = activeIndex !== null && activeIndex > 0 ? zones[activeIndex - 1] : null;
+  const nextZone = activeIndex !== null && activeIndex < zones.length - 1 ? zones[activeIndex + 1] : null;
 
   const selectZone = useCallback((index: number) => {
     setActiveIndex(index);
@@ -44,10 +46,20 @@ export default function Home() {
 
   const move = useCallback(
     (direction: 1 | -1) => {
-      const current = activeIndex ?? (direction === 1 ? -1 : 0);
-      selectZone((current + direction + zones.length) % zones.length);
+      if (activeIndex === null) {
+        selectZone(direction === 1 ? 0 : zones.length - 1);
+        return;
+      }
+
+      const destination = activeIndex + direction;
+      if (destination < 0 || destination >= zones.length) {
+        returnToOverview();
+        return;
+      }
+
+      selectZone(destination);
     },
-    [activeIndex, selectZone],
+    [activeIndex, returnToOverview, selectZone],
   );
 
   useEffect(() => {
@@ -99,7 +111,7 @@ export default function Home() {
     if (!activeZone || !mapSize) return { scale: 1, x: 0, y: 0 };
 
     const scale = activeZone.zoom;
-    const horizontalOffset = viewportWidth > 980 ? -170 : 0;
+    const horizontalOffset = viewportWidth > 1280 ? -235 : viewportWidth > 980 ? -210 : viewportWidth > 720 ? -170 : 0;
     const verticalOffset = viewportWidth <= 720 ? -115 : 12;
     const x = -(activeZone.x / 100 - 0.5) * mapSize * scale + horizontalOffset;
     const y = -(activeZone.y / 100 - 0.5) * mapSize * scale + verticalOffset;
@@ -108,6 +120,13 @@ export default function Home() {
   }, [activeZone, mapSize, viewportWidth]);
 
   const connectedCount = activeZone?.cards.filter((card) => card.href).length ?? 0;
+  const panelMode = !activeZone
+    ? "feature"
+    : activeZone.cards.length === 1
+      ? "feature"
+      : activeZone.cards.length <= 4
+        ? "mosaic"
+        : "directory";
 
   return (
     <main className={`hub ${activeZone ? "is-exploring" : "is-overview"}`}>
@@ -211,53 +230,91 @@ export default function Home() {
       )}
 
       {activeZone && (
-        <aside className="detailPanel" aria-live="polite" aria-label={`${activeZone.name} details`}>
+        <aside className={`detailPanel mode-${panelMode}`} aria-live="polite" aria-label={`${activeZone.name} details`}>
           <div className="panelTopline" />
-          <div className="panelToolbar">
+          <div className="panelShellHeader">
             <button type="button" onClick={returnToOverview} className="backButton"><span aria-hidden="true">←</span> All rooms</button>
-            <span>HQ / {activeZone.number}</span>
+            <div className="panelQuickNav" aria-label="Room navigation">
+              <button type="button" onClick={() => move(-1)} aria-label={`Previous: ${previousZone?.name ?? "Overview"}`}>
+                <span aria-hidden="true">←</span>
+              </button>
+              <span>Journey {activeZone.number} / 07</span>
+              <button type="button" onClick={() => move(1)} aria-label={`Next: ${nextZone?.name ?? "Overview"}`}>
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
           </div>
 
-          <div className="panelHeading">
-            <span className="eyebrow">{activeZone.room}</span>
-            <h2>{activeZone.name}</h2>
-            <p className="zoneFunction">{activeZone.function}</p>
-            <p className="zoneDescription">{activeZone.description}</p>
-          </div>
+          <div className="panelScroll">
+            <div className="journeyTrack" aria-label="Bottom-to-top agency journey">
+              {zones.map((zone, index) => (
+                <button
+                  className={`${activeIndex === index ? "active" : ""} ${activeIndex !== null && index < activeIndex ? "complete" : ""}`}
+                  type="button"
+                  key={zone.id}
+                  onClick={() => selectZone(index)}
+                  aria-current={activeIndex === index ? "step" : undefined}
+                  aria-label={`${zone.number}: ${zone.name}`}
+                  title={zone.name}
+                >
+                  <i aria-hidden="true" />
+                  <span>{zone.number}</span>
+                </button>
+              ))}
+            </div>
 
-          <div className="statGrid">
-            {activeZone.stats.map(([value, label]) => (
-              <div className="stat" key={label}><strong>{value}</strong><span>{label}</span></div>
-            ))}
-          </div>
+            <div className="panelHeading" data-zone={activeZone.id}>
+              <span className="panelRoomNumber" aria-hidden="true">{activeZone.number}</span>
+              <span className="roomGlyph" aria-hidden="true"><i /><i /><i /></span>
+              <div className="roomKicker">
+                <span className="eyebrow">{activeZone.room}</span>
+                <span className="roomSignal"><i aria-hidden="true" />{connectedCount} linked</span>
+              </div>
+              <h2>{activeZone.name}</h2>
+              <p className="zoneFunction">{activeZone.function}</p>
+              <p className="zoneDescription">{activeZone.description}</p>
+            </div>
 
-          <div className="projectsHeader">
-            <span>Connected systems</span>
-            <small>{connectedCount} linked</small>
-          </div>
+            <div className="statGrid">
+              {activeZone.stats.map(([value, label]) => (
+                <div className="stat" key={label}><strong>{value}</strong><span>{label}</span></div>
+              ))}
+            </div>
 
-          <div className="projectList">
-            {activeZone.cards.map((card, cardIndex) => (
-              <CardShell card={card} key={card.title}>
-                <span className="cardIndex">{String(cardIndex + 1).padStart(2, "0")}</span>
-                <span className="cardBody">
-                  <small>{card.meta}</small>
-                  <strong>{card.title}</strong>
-                  <span className="cardDescription">{card.description}</span>
-                  <span className="cardMeta">
-                    <span className="cardStatus"><i aria-hidden="true" />{card.status}</span>
-                    <span>{card.href ? "Open" : "Pending"}</span>
+            <div className="projectsHeader">
+              <span>Systems in this room</span>
+              <small>{activeZone.cards.length} total · {connectedCount} linked</small>
+            </div>
+
+            <div className={`projectList layout-${panelMode}`}>
+              {activeZone.cards.map((card, cardIndex) => (
+                <CardShell card={card} key={card.title}>
+                  <span className="cardIndex">{String(cardIndex + 1).padStart(2, "0")}</span>
+                  <span className="cardBody">
+                    <small>{card.meta}</small>
+                    <strong>{card.title}</strong>
+                    <span className="cardDescription">{card.description}</span>
+                    <span className="cardMeta">
+                      <span className="cardStatus"><i aria-hidden="true" />{card.status}</span>
+                      <span>{card.href ? "Open system" : "Not linked"}</span>
+                    </span>
                   </span>
-                </span>
-                <span className="cardArrow" aria-hidden="true">{card.href ? "↗" : "—"}</span>
-              </CardShell>
-            ))}
+                  <span className="cardArrow" aria-hidden="true">{card.href ? "↗" : "—"}</span>
+                </CardShell>
+              ))}
+            </div>
           </div>
 
           <div className="panelNavigation">
-            <button type="button" onClick={() => move(-1)} aria-label="Previous room">← Prev</button>
-            <span>{activeZone.number} / 07</span>
-            <button type="button" onClick={() => move(1)} aria-label="Next room">Next →</button>
+            <button type="button" onClick={() => move(-1)} aria-label={`Previous room: ${previousZone?.name ?? "Overview"}`}>
+              <span className="navArrow" aria-hidden="true">←</span>
+              <span className="navCopy"><small>{previousZone ? "Previous room" : "Leave room"}</small><strong>{previousZone?.name ?? "Overview"}</strong></span>
+            </button>
+            <span className="navPosition"><strong>{activeZone.number}</strong><small>/ 07</small></span>
+            <button type="button" onClick={() => move(1)} aria-label={`Next room: ${nextZone?.name ?? "Overview"}`}>
+              <span className="navCopy"><small>{nextZone ? "Next room" : "Journey complete"}</small><strong>{nextZone?.name ?? "Overview"}</strong></span>
+              <span className="navArrow" aria-hidden="true">→</span>
+            </button>
           </div>
         </aside>
       )}
@@ -265,7 +322,7 @@ export default function Home() {
       <footer className="footerBar">
         <span>© Sentient Agency</span>
         <span className="footerHint"><kbd>1–7</kbd> Rooms <kbd>← →</kbd> Navigate <kbd>Esc</kbd> Overview</span>
-        <span>Live index / v0.2</span>
+        <span>Live index / v0.3</span>
       </footer>
     </main>
   );
