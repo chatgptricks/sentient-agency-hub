@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "build:pages": "PAGES_BUILD=true NEXT_PUBLIC_BASE_PATH=/sentient-agency-hub next build",
-    "lint": "eslint . --ignore-pattern .next --ignore-pattern out"
+    "lint": "eslint . --ignore-pattern .next --ignore-pattern out --ignore-pattern dist"
   },
   "dependencies": {
     "next": "16.2.6",

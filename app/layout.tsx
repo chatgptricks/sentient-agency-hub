@@ -6,7 +6,7 @@ const assetBase = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export const metadata: Metadata = {
   title: "Sentient HQ — Agency Hub",
   description:
-    "An interactive isometric hub for exploring Sentient Agency's seven working zones.",
+    "Sentient Agency's interactive operating map for tools, accounts, intelligence, decks and client builds.",
   icons: {
     icon: `${assetBase}/favicon.png`,
     shortcut: `${assetBase}/favicon.png`,

@@ -5,9 +5,12 @@ An interactive isometric hub for exploring Sentient Agency through seven working
 ## Experience
 
 - Seven animated room zooms mapped to the original agency illustration
-- Expandable mock project cards, progress signals and zone metrics
+- Source-backed cards for Sentient tools, client builds, dashboards and internal systems
+- Clear live, source-only, pending and offline states instead of invented destinations
 - Keyboard navigation with `1–7`, arrow keys and `Esc`
 - Responsive mobile layout with an accessible detail sheet
+
+The full Codex Projects audit and room mapping are recorded in [`PROJECT_INVENTORY.md`](./PROJECT_INVENTORY.md).
 
 ## Local development
 

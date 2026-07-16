@@ -38,7 +38,8 @@ button {
   color: inherit;
 }
 
-button:focus-visible {
+button:focus-visible,
+a:focus-visible {
   outline: 2px solid var(--acid);
   outline-offset: 3px;
 }
@@ -593,16 +594,34 @@ button:focus-visible {
   padding: 14px 13px;
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.025);
-  cursor: pointer;
+  color: inherit;
+  cursor: default;
+  text-decoration: none;
   text-align: left;
-  transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, background 180ms ease, opacity 180ms ease, transform 180ms ease;
 }
 
-.projectCard:hover,
-.projectCard.expanded {
+.projectCard[href] {
+  cursor: pointer;
+}
+
+.projectCard[href]:hover {
   border-color: rgba(207, 255, 26, 0.56);
   background: rgba(207, 255, 26, 0.045);
   transform: translateX(-3px);
+}
+
+.projectCard.isUnavailable {
+  opacity: 0.72;
+}
+
+.projectCard.state-source[href]:hover {
+  border-color: rgba(80, 174, 255, 0.62);
+  background: rgba(80, 174, 255, 0.055);
+}
+
+.projectCard.state-offline {
+  border-color: rgba(255, 94, 94, 0.2);
 }
 
 .cardIndex {
@@ -635,37 +654,15 @@ button:focus-visible {
 }
 
 .cardDescription {
-  max-height: 0;
-  margin-top: 0;
-  overflow: hidden;
-  opacity: 0;
+  margin-top: 9px;
   color: #8e9189;
   font-size: 10px;
   line-height: 1.55;
-  transition: max-height 300ms ease, opacity 220ms ease, margin 220ms ease;
-}
-
-.projectCard.expanded .cardDescription {
-  max-height: 80px;
-  margin-top: 9px;
-  opacity: 1;
-}
-
-.progressTrack {
-  height: 2px;
-  margin: 12px 0 7px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.progressTrack i {
-  display: block;
-  height: 100%;
-  background: var(--acid);
-  box-shadow: 0 0 10px rgba(207, 255, 26, 0.55);
 }
 
 .cardMeta {
+  gap: 10px;
+  margin-top: 12px;
   color: #777a72;
   font-family: "Courier New", monospace;
   font-size: 8px;
@@ -673,8 +670,57 @@ button:focus-visible {
   text-transform: uppercase;
 }
 
-.cardArrow {
+.cardStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cardStatus i {
+  width: 5px;
+  height: 5px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--acid);
+  box-shadow: 0 0 8px rgba(207, 255, 26, 0.48);
+}
+
+.state-live .cardStatus,
+.state-live .cardArrow {
   color: var(--acid);
+}
+
+.state-source .cardStatus,
+.state-source .cardArrow {
+  color: #50aeff;
+}
+
+.state-source .cardStatus i {
+  background: #50aeff;
+  box-shadow: 0 0 8px rgba(80, 174, 255, 0.5);
+}
+
+.state-pending .cardStatus,
+.state-pending .cardArrow {
+  color: #e7b95d;
+}
+
+.state-pending .cardStatus i {
+  background: #e7b95d;
+  box-shadow: none;
+}
+
+.state-offline .cardStatus,
+.state-offline .cardArrow {
+  color: #ff6f6f;
+}
+
+.state-offline .cardStatus i {
+  background: #ff6f6f;
+  box-shadow: 0 0 8px rgba(255, 111, 111, 0.38);
+}
+
+.cardArrow {
   font-family: "Courier New", monospace;
   font-size: 14px;
   text-align: right;
