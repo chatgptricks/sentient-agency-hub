@@ -538,6 +538,8 @@ a:focus-visible {
 
 .panelScroll {
   min-height: 0;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding-bottom: 22px;
@@ -547,6 +549,7 @@ a:focus-visible {
 
 .journeyTrack {
   position: relative;
+  order: 1;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 3px;
@@ -613,6 +616,7 @@ a:focus-visible {
 
 .panelHeading {
   position: relative;
+  order: 2;
   min-height: 230px;
   margin: 0 18px;
   padding: 29px 21px 24px;
@@ -740,6 +744,7 @@ a:focus-visible {
 }
 
 .statGrid {
+  order: 3;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
@@ -771,6 +776,7 @@ a:focus-visible {
 }
 
 .projectsHeader {
+  order: 4;
   margin: 0 18px;
   padding: 24px 0 11px;
   color: #f2f3ef;
@@ -789,6 +795,7 @@ a:focus-visible {
 }
 
 .projectList {
+  order: 5;
   display: grid;
   gap: 8px;
   margin: 0 18px;
@@ -1116,7 +1123,17 @@ a:focus-visible {
 }
 
 .mode-feature .projectsHeader {
+  order: 3;
   padding-top: 17px;
+}
+
+.mode-feature .projectList {
+  order: 4;
+}
+
+.mode-feature .statGrid {
+  order: 5;
+  margin-top: 9px;
 }
 
 .panelNavigation {
