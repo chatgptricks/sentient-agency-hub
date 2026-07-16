@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[97367,["/sentient-agency-hub/_next/static/chunks/0dbhjjzl8qfwv.js"],"ViewportBoundary"]
+3:I[97367,["/sentient-agency-hub/_next/static/chunks/0dbhjjzl8qfwv.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[27201,["/sentient-agency-hub/_next/static/chunks/0dbhjjzl8qfwv.js"],"IconMark"]
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#000000"}],["$","meta","3",{"name":"color-scheme","content":"dark"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Sentient HQ — Agency Hub"}],["$","meta","1",{"name":"description","content":"An interactive isometric hub for exploring Sentient Agency's seven working zones."}],["$","link","2",{"rel":"shortcut icon","href":"/sentient-agency-hub/favicon.png"}],["$","link","3",{"rel":"icon","href":"/sentient-agency-hub/favicon.png"}],["$","$L5","4",{}]]}]}]}],null]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"eRejj2u86dtRU7j3ENPmT"}
